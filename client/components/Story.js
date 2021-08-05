@@ -7,7 +7,7 @@ const Story = ({ data }) => {
         const years = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 365))
         const days = Math.floor(timeDiff % (1000 * 60 * 60 * 24 * 365) / (1000 * 60 * 60 * 24))
         const hrs = Math.floor(timeDiff % (1000 * 60 * 60 * 24) / 36e5)
-        return (years !== 0) ? `${years} yrs` : (days !== 0) ? `${days} days ${hrs} hrs` : `${hrs} hrs`
+        return (years !== 0) ? `${years} yrs` : (days !== 0) ? `${days} days` : `${hrs} hrs`
     }
     return (
         <>
