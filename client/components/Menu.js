@@ -1,5 +1,4 @@
-import { Text } from 'native-base';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
 import AllStoriesPage from '../pages/AllStoriesPage';
@@ -8,9 +7,9 @@ import TopStoriesPage from '../pages/TopStoriesPage';
 const renderScene = ({ route }) => {
     switch (route.key) {
         case 'all':
-            return <AllStoriesPage/>
+            return <AllStoriesPage searchTerm={route.searchTerm}/>
         case 'best':
-            return <TopStoriesPage/>
+            return <TopStoriesPage searchTerm={route.searchTerm}/>
     }
 }
 
@@ -23,12 +22,21 @@ const renderTabBar = props => {
     />
 }
 
-const Menu = () => {
+const Menu = (props) => {
+  const [searchTerm, setSearchTerm] = useState(props.searchTerm)
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
-  const [routes] = useState([
-    { key: 'all', title: 'All' },
-    { key: 'best', title: 'Best' },
+
+  useEffect(() => {
+    setRoutes([
+        { key: 'all', title: 'All', searchTerm: props.searchTerm },
+        { key: 'best', title: 'Best', searchTerm: props.searchTerm },
+    ])
+  }, [props.searchTerm])
+  
+  const [routes, setRoutes] = useState([
+    { key: 'all', title: 'All', searchTerm: '' },
+    { key: 'best', title: 'Best', searchTerm: '' },
   ]);
 
   return (
