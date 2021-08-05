@@ -18,8 +18,8 @@ import (
 )
 
 const (
-	numThreads  = 40
-	insertBatch = 250
+	numThreads  = 75
+	insertBatch = 500
 )
 
 type Count struct {
@@ -50,7 +50,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error loading .env file: %v\n", err)
 	}
-	endAt := time.Date(2021, 1, 1, 0, 0, 0, 0, time.UTC) // 2021-01-01
+	endAt := time.Date(2020, 1, 1, 0, 0, 0, 0, time.UTC) // 2021-01-01
 
 	resp, err := http.Get("https://hacker-news.firebaseio.com/v0/maxitem.json")
 	if err != nil {
@@ -72,12 +72,12 @@ func main() {
 
 	var sendWg sync.WaitGroup
 	var receiveWg sync.WaitGroup
-	data := make(chan Story)
+	data := make(chan Story, 1000)
 
 	var sent int64 = 0
 	var received int64 = 0
 
-	for i := 0; i < numThreads/10; i++ {
+	for i := 0; i < 1; i++ {
 		receiveWg.Add(1)
 		go processData(i, data, &receiveWg, &received)
 	}
@@ -140,13 +140,15 @@ func processData(wid int, ch chan Story, wg *sync.WaitGroup, received *int64) {
 	for story := range ch {
 		atomic.AddInt64(received, 1)
 		stories = append(stories, story)
-		if len(stories) == insertBatch {
+		if len(stories) >= insertBatch {
 			_, err := client.From("stories").Insert(stories, true, "id", "", "").Execute()
 			if err != nil {
-				log.Fatalln(err)
+				log.Printf("[Worker %v]: Error on insert: %v\n", wid, err)
+				time.Sleep(5 * time.Second)
+			} else {
+				stories = nil
+				log.Printf("[Worker %v] Batch story id: %v\n", wid, story.ID)
 			}
-			stories = nil
-			log.Printf("[Worker %v] Batch story id: %v\n", wid, story.ID)
 		}
 	}
 	if len(stories) > 0 {
