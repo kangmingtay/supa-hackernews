@@ -3,6 +3,7 @@ import { useWindowDimensions } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
 import AllStoriesPage from '../pages/AllStoriesPage';
 import TopStoriesPage from '../pages/TopStoriesPage';
+import NewStoriesPage from '../pages/NewStoriesPage';
 
 const renderScene = ({ route }) => {
     switch (route.key) {
@@ -10,6 +11,8 @@ const renderScene = ({ route }) => {
             return <AllStoriesPage searchTerm={route.searchTerm}/>
         case 'best':
             return <TopStoriesPage searchTerm={route.searchTerm}/>
+        case 'new':
+            return <NewStoriesPage searchTerm={route.searchTerm}/>
     }
 }
 
@@ -31,12 +34,14 @@ const Menu = (props) => {
     setRoutes([
         { key: 'all', title: 'All', searchTerm: props.searchTerm },
         { key: 'best', title: 'Best', searchTerm: props.searchTerm },
+        { key: 'new', title: 'New', searchTerm: props.searchTerm },
     ])
   }, [props.searchTerm])
   
   const [routes, setRoutes] = useState([
     { key: 'all', title: 'All', searchTerm: '' },
     { key: 'best', title: 'Best', searchTerm: '' },
+    { key: 'new', title: 'New', searchTerm: '' },
   ]);
 
   return (

@@ -5,7 +5,7 @@ import "react-native-url-polyfill/auto";
 import Story from "../components/Story";
 import SearchingLottie from "../components/SearchingLottie";
 
-const TopStoriesPage = (props) => {
+const NewStoriesPage = (props) => {
   const [stories, setStories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -28,7 +28,7 @@ const TopStoriesPage = (props) => {
   const getStories = async () => {
     setIsLoading(true);
     const { data, err } = await supabase
-      .from("best_stories")
+      .from("new_stories")
       .select("*")
       .order("time", { ascending: false })
       .limit(100);
@@ -41,7 +41,7 @@ const TopStoriesPage = (props) => {
   const handleSearch = async (term) => {
     setIsLoading(true);
     const { data, err } = await supabase
-      .from("best_stories")
+      .from("new_stories")
       .select()
       .textSearch("title", term)
       .order("time", { ascending: false })
@@ -63,4 +63,4 @@ const TopStoriesPage = (props) => {
   );
 };
 
-export default TopStoriesPage;
+export default NewStoriesPage;
