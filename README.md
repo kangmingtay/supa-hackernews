@@ -3,7 +3,7 @@
 ## Description
 A mobile app for hackernews built with react-native, supabase & postgres functions
 
-https://user-images.githubusercontent.com/28647601/128597094-eb8c9425-d9e7-47ec-92df-cd902ee48fc2.MP4
+https://user-images.githubusercontent.com/28647601/128597270-8cec449e-0f69-46bc-b71d-f2eb797f32f5.MP4
 
 ## Implementation
 * `client` contains react native code 
