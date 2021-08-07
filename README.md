@@ -6,7 +6,7 @@ A mobile app for hackernews built with react-native, supabase & postgres functio
 https://user-images.githubusercontent.com/28647601/128597270-8cec449e-0f69-46bc-b71d-f2eb797f32f5.MP4
 
 ## Implementation
-* `client` contains react native code 
+* `client` contains react native code (uses [supabase-js](https://github.com/supabase/supabase-js) & [postgres full-text search](https://supabase.io/docs/guides/database/full-text-search) for the search bar)
 
 * `sql` contains sql functions run on supabase to get best & new stories every hour (uses [pg_cron](https://supabase.io/blog/2021/03/05/postgres-as-a-cron-server))
 
