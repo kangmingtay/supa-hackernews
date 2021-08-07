@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView } from "native-base";
+import { ScrollView, Text } from "native-base";
 import { supabase } from "../lib/initSupabase";
 import "react-native-url-polyfill/auto";
 import Story from "../components/Story";
 import SearchingLottie from "../components/SearchingLottie";
+import NoResults from "../components/NoResults";
 
 const NewStoriesPage = (props) => {
   const [stories, setStories] = useState([]);
@@ -31,7 +32,7 @@ const NewStoriesPage = (props) => {
       .from("new_stories")
       .select("*")
       .order("time", { ascending: false })
-      .limit(100);
+      .limit(50);
 
     setIsLoading(false);
     if (err) console.log(err);
@@ -57,7 +58,7 @@ const NewStoriesPage = (props) => {
       {isLoading ? (
         <SearchingLottie />
       ) : (
-        <ScrollView>{stories.length === 0 ? null : listStories}</ScrollView>
+        <ScrollView>{stories.length === 0 ? <NoResults/> : listStories}</ScrollView>
       )}
     </>
   );

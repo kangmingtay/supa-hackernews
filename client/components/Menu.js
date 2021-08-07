@@ -26,7 +26,6 @@ const renderTabBar = props => {
 }
 
 const Menu = (props) => {
-  const [searchTerm, setSearchTerm] = useState(props.searchTerm)
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
 

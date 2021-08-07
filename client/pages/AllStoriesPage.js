@@ -5,6 +5,7 @@ import { supabase } from "../lib/initSupabase";
 import "react-native-url-polyfill/auto";
 import Story from "../components/Story";
 import SearchingLottie from "../components/SearchingLottie";
+import NoResults from "../components/NoResults";
 
 const AllStoriesPage = (props) => {
   const [stories, setStories] = useState([]);
@@ -29,10 +30,10 @@ const AllStoriesPage = (props) => {
   const getStories = async () => {
     setIsLoading(true);
     const { data, err } = await supabase
-      .from("stories")
+      .from("best_stories")
       .select("*")
       .order("time", { ascending: false })
-      .limit(100);
+      .limit(50);
 
     setIsLoading(false);
     if (err) console.log(err);
@@ -48,7 +49,7 @@ const AllStoriesPage = (props) => {
       .order("time", { ascending: false })
       .order("score", { ascending: false })
       .limit(50);
-      
+
     setIsLoading(false);
     if (err) console.log(err);
     else setStories(data);
@@ -58,7 +59,7 @@ const AllStoriesPage = (props) => {
       {isLoading ? (
         <SearchingLottie />
       ) : (
-        <ScrollView>{stories.length === 0 ? null : listStories}</ScrollView>
+        <ScrollView>{stories.length === 0 ? <NoResults/> : listStories}</ScrollView>
       )}
     </>
   );

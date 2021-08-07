@@ -1,4 +1,4 @@
-import { Box, HStack, VStack, Text, Divider, Button, ChevronRightIcon, Badge, Spacer } from 'native-base';
+import { Box, HStack, VStack, Text, Divider, Badge } from 'native-base';
 import React from 'react';
 import * as WebBrowser from 'expo-web-browser';
 
@@ -12,7 +12,12 @@ const Story = ({ data }) => {
     }
 
     const _handlePressButtonAsync = async (url) => {
-        await WebBrowser.openBrowserAsync(url);
+        try {
+            await WebBrowser.openBrowserAsync(url);
+        } catch (err) {
+            await WebBrowser.dismissBrowser()
+            console.log(err)
+        }
         // console.log(res)
     }
     return (
