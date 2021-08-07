@@ -1,9 +1,9 @@
 # supa-hackernews
 
 ## Description
-A mobile app for hackernews built with supabase
+A mobile app for hackernews built with react-native, supabase & postgres functions
 
-![Demo](client/assets/supa-hackernews-demo.MP4)
+https://user-images.githubusercontent.com/28647601/128597094-eb8c9425-d9e7-47ec-92df-cd902ee48fc2.MP4
 
 ## Implementation
 * `client` contains react native code 
